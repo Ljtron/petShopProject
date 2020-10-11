@@ -48,7 +48,7 @@ App = {
   },
 
   initContract: function() {
-    $.getJson("Adoption.json", function(data){
+    $.getJSON("Adoption.json", function(data){
 
       // get the data of the contract and instantiates it with @truffle/contract
       var adoptionArtifact = data
@@ -73,7 +73,31 @@ App = {
     App.contracts.Adoption.deployed().then(function(instance){
       adoptionInstance = instance;
 
-      return adoptionInstance.getAdopters().call();
+      return adoptionInstance.getAdopters.call();
+    }).then(function(adopters){
+      console.log(adopters)
+      web3.eth.getAccounts(function(err, accounts){
+        if(err){
+          console.log(err)
+        }
+        else{
+          for(i=0; i<adopters.length; i++){
+            if(adopters[i] != "0x0000000000000000000000000000000000000000"){
+              if(adopters[i] == accounts[0]){
+                var petPanel = $('.panel-pet').eq(i)
+                petPanel.find('button.btn-adopt').text('Owned').attr('disabled', true).attr("class", "btn btn-secondary");
+                var newButton = $("<button class='btn btn-default btn-sendBack' type='button' data-id='0' id='sendBack-btn'>send back</button>")
+                petPanel.find("#petBody-row").append(newButton)
+              }
+              else{
+                $('.panel-pet').eq(i).find('button.btn-adopt').text('Success').attr('disabled', true).attr("class", "btn btn-success");
+              }
+            }
+          }
+        }
+      })
+    }).catch(function(error){
+      console.log(error)
     })
   },
 
@@ -82,9 +106,25 @@ App = {
 
     var petId = parseInt($(event.target).data('id'));
 
-    /*
-     * Replace me...
-     */
+    var adoptionInstance;
+    web3.eth.getAccounts(function(err, accounts){
+      if(err){
+        console.log("Error with accounts: " + err);
+      }
+
+      var account = accounts[0];
+
+      App.contracts.Adoption.deployed().then(function(instance){
+        adoptionInstance = instance;
+
+        return adoptionInstance.adopt(petId, {from: account});
+      }).then(function(data){
+        console.log(data)
+        return App.markAdopted();
+      }).catch(function(error){
+        console.log(error.message)
+      })
+    })
   }
 
 };
