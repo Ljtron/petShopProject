@@ -18,5 +18,8 @@ Another edit I made was I gave the user the ability to return their pet if they 
 
 ## Final Product
 
+**Screenshot 1**
 ![screenshot 1](/screenshots/screenshot-2020-10-10-23-19-26.png)
+
+**Screenshot 2**
 ![screenshot 2](/screenshots/screenshot-2020-10-10-23-21-40.png)
