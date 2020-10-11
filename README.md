@@ -14,5 +14,9 @@ Lastly you will finish the project by learning how to use the web3 protocal(allo
 
 One edit I made to the project is when the owner of the pet is on the website instead of seeing success button like the tutorial tells you to put. The owner sees the owner button at the bottom left.
 
+Another edit I made was I gave the user the ability to return their pet if they didn't believe the pet fit into the family. First I editted the smart contract. Next I compiled, migrated, and test the smart contract on the test network. Lastly I made changes to the react native app so that the user could press a button and send back their pet.
+
 ## Final Product
 
+![screenshot 1](/screenshots/screenshot-2020-10-10-23-19-26.png)
+![screenshot 2](/screenshots/screenshot-2020-10-10-23-21-40.png)

@@ -126,5 +126,37 @@
     "age": 2,
     "breed": "Golden Retriever",
     "location": "Dawn, Wisconsin"
+  },
+  {
+    "id": 16,
+    "name": "dugg",
+    "picture": "images/golden-retriever.jpeg",
+    "age": 8,
+    "breed": "Golden Retriever",
+    "location": "Pal, Wisconsin"
+  },
+  {
+    "id": 17,
+    "name": "crust",
+    "picture": "images/golden-retriever.jpeg",
+    "age": 17,
+    "breed": "Golden Retriever",
+    "location": "Nal, California"
+  },
+  {
+    "id": 18,
+    "name": "bug",
+    "picture": "images/golden-retriever.jpeg",
+    "age": 8,
+    "breed": "Golden Retriever",
+    "location": "Dawn, Wisconsin"
+  },
+  {
+    "id": 19,
+    "name": "Terry",
+    "picture": "images/golden-retriever.jpeg",
+    "age": 12,
+    "breed": "Golden Retriever",
+    "location": "Dawn, Wisconsin"
   }
 ]

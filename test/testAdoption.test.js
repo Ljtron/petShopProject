@@ -24,5 +24,11 @@ contract("Adoption", function(accounts){
             var adopters = await adoption.getAdopters();
             assert.equal(adopters[8], expectedAdopter, "The owner of the 8th pet should be the owner of the expectedAdopter address");
         })
+
+        it("Send back the dog if not a good fit for the family", async() => {
+            var sendBack = await adoption.sendBack(8, {from: expectedAdopter});
+            var adopter = await adoption.adopters(8);
+            assert.equal(adopter, 0x0000000000000000000000000000000000000000, "The owner hasn't returned the pet")
+        })
     })
 })

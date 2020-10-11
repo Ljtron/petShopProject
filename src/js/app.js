@@ -65,6 +65,7 @@ App = {
 
   bindEvents: function() {
     $(document).on('click', '.btn-adopt', App.handleAdopt);
+    $(document).on('click', '.btn-sendBack', App.sendBack)
   },
 
   markAdopted: function() {
@@ -83,11 +84,12 @@ App = {
         else{
           for(i=0; i<adopters.length; i++){
             if(adopters[i] != "0x0000000000000000000000000000000000000000"){
-              if(adopters[i] == accounts[0]){
-                var petPanel = $('.panel-pet').eq(i)
+              var petPanel = $('.panel-pet').eq(i)
+              if(adopters[i] == accounts[0] && (petPanel.find('button.btn-adopt').text() != "adopt")){
                 petPanel.find('button.btn-adopt').text('Owned').attr('disabled', true).attr("class", "btn btn-secondary");
-                var newButton = $("<button class='btn btn-default btn-sendBack' type='button' data-id='0' id='sendBack-btn'>send back</button>")
-                petPanel.find("#petBody-row").append(newButton)
+                petPanel.find('button.btn-sendBack').show();
+                // var newButton = $("<button class='btn btn-default btn-sendBack' type='button' data-id=" + "'" + i + "'" + "id='sendBack-btn'>send back</button>")
+                // petPanel.find("#petBody-row").append(newButton)
               }
               else{
                 $('.panel-pet').eq(i).find('button.btn-adopt').text('Success').attr('disabled', true).attr("class", "btn btn-success");
@@ -124,6 +126,31 @@ App = {
       }).catch(function(error){
         console.log(error.message)
       })
+    })
+  },
+
+  sendBack: function(event){
+    event.preventDefault();
+
+    var petId = parseInt($(event.target).data("id"));
+    console.log(petId);
+    var adoptionInstance;
+    web3.eth.getAccounts(function(error, accounts){
+      var account = accounts[0];
+      if(error){
+        console.log(error);
+      }
+      else{
+        App.contracts.Adoption.deployed().then(function(instance){
+          adoptionInstance = instance;
+
+          return adoptionInstance.sendBack(petId, {from: account})
+        }).then(function(data){
+          return App.markAdopted();
+        }).catch(function(error){
+          console.log(error.message)
+        })
+      }
     })
   }
 
